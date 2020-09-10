@@ -1,0 +1,223 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  line-height: 1.5em;
+}
+
+p {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+.hide {
+  display: none;
+}
+
+.container > h1 {
+  margin: 1em 2em;
+}
+
+.container-calculator {
+  display: grid;
+  background: cyan;
+  grid-template-columns: 1fr 17em;
+  margin: 1em 2em 0 2em;
+}
+
+/* main-calculator-interface */
+
+.main-calculator {
+  display: grid;
+  margin-left: 0.2rem;
+  margin-bottom: 0.2rem;
+  grid-template-rows: 1fr 4fr;
+}
+
+/* Operator */
+
+.operator {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-template-areas:
+    'percentage clear-entry clear backspace'
+    'power-of-three power-of-two square-root division'
+    'seven eight nine multiplication' 'four five six minus'
+    'one two three plus'
+    'plus-minus zero comma equal';
+  grid-gap: 0.2rem;
+  text-align: center;
+}
+
+/* Calculator Screen */
+
+.calculator-screen {
+  display: grid;
+  grid-template-rows: 2rem 4rem;
+  text-align: end;
+}
+
+.history {
+  color: rgba(160, 160, 160, 0.479);
+  font-size: 1rem;
+  margin-top: 0.8rem;
+  margin-right: 0.6rem;
+}
+
+.result {
+  font-size: 2rem;
+  margin-top: 0.7rem;
+  margin-right: 0.5rem;
+}
+
+/* operator-menu */
+
+.operator-menu {
+  background: rgba(255, 255, 255, 0.507);
+  padding: 1.5rem;
+}
+
+.operator-menu:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.operator-menu.operation {
+  background: rgba(255, 255, 255, 0.788);
+}
+.operator-menu.operation:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+#one {
+  grid-area: one;
+}
+
+#two {
+  grid-area: two;
+}
+
+#three {
+  grid-area: three;
+}
+
+#four {
+  grid-area: four;
+}
+
+#five {
+  grid-area: five;
+}
+
+#six {
+  grid-area: six;
+}
+
+#seven {
+  grid-area: seven;
+}
+
+#eight {
+  grid-area: eight;
+}
+
+#nine {
+  grid-area: nine;
+}
+
+#zero {
+  grid-area: zero;
+}
+
+#plus {
+  grid-area: plus;
+}
+
+#minus {
+  grid-area: minus;
+}
+
+#multiplication {
+  grid-area: multiplication;
+}
+
+#division {
+  grid-area: division;
+}
+
+#equal {
+  grid-area: equal;
+  background: rgba(95, 95, 95, 0.315);
+}
+
+#equal:hover {
+  background: rgba(36, 36, 36, 0.5);
+}
+
+#plus-minus {
+  grid-area: plus-minus;
+}
+
+#comma {
+  grid-area: comma;
+}
+
+#square-root {
+  grid-area: square-root;
+}
+
+#square {
+  grid-area: power-of-two;
+}
+
+#cubic {
+  grid-area: power-of-three;
+}
+
+#percentage {
+  grid-area: percentage;
+}
+
+#clear-entry-btn {
+  grid-area: clear-entry;
+}
+
+#clear-btn {
+  grid-area: clear;
+}
+
+#backspace {
+  grid-area: backspace;
+}
+
+/* Side Nav */
+
+.side-nav {
+  display: grid;
+  padding-top: 1em;
+  padding-left: 1em;
+  grid-template-rows: 4rem 4fr;
+}
+
+.nav-tab > li {
+  display: inline;
+  font-weight: 600;
+  padding-bottom: 0.3rem;
+  border-bottom: 3px #f7f7f7 solid;
+}
+
+.history-field > p {
+  font-size: 0.8em;
+}

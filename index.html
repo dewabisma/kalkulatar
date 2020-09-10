@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>MSG Calculator</title>
+  </head>
+  <body>
+    <div class="container">
+      <!-- <h1>CALCULATORKU!!!</h1> -->
+
+      <div class="container-calculator">
+        <!-- container start here -->
+
+        <!-- Main Calculator -->
+        <div class="main-calculator">
+          <div class="calculator-screen">
+            <p class="history" id="calculation-history"></p>
+            <p class="result" id="calculation-result">0</p>
+          </div>
+
+          <div class="operator">
+            <div class="operator-menu" id="one">1</div>
+            <div class="operator-menu" id="two">2</div>
+            <div class="operator-menu" id="three">3</div>
+            <div class="operator-menu" id="four">4</div>
+            <div class="operator-menu" id="five">5</div>
+            <div class="operator-menu" id="six">6</div>
+            <div class="operator-menu" id="seven">7</div>
+            <div class="operator-menu" id="eight">8</div>
+            <div class="operator-menu" id="nine">9</div>
+            <div class="operator-menu" id="zero">0</div>
+            <div class="operator-menu operation" id="plus">&#43;</div>
+            <div class="operator-menu operation" id="minus">&#8722;</div>
+            <div class="operator-menu operation" id="multiplication">
+              &#215;
+            </div>
+            <div class="operator-menu operation" id="division">&#247;</div>
+            <div class="operator-menu" id="equal">&#61;</div>
+            <div class="operator-menu" id="plus-minus">&#177;</div>
+            <div class="operator-menu" id="comma">,</div>
+            <div class="operator-menu operation" id="square-root">&#8730;</div>
+            <div class="operator-menu operation" id="square">x&#178;</div>
+            <div class="operator-menu operation" id="cubic">x&#179;</div>
+            <div class="operator-menu operation" id="percentage">&#37;</div>
+            <div class="operator-menu operation" id="clear-entry-btn">CE</div>
+            <div class="operator-menu operation" id="clear-btn">C</div>
+            <div class="operator-menu operation" id="backspace">&#8592;</div>
+          </div>
+        </div>
+
+        <!-- side nav -->
+        <div class="side-nav">
+          <ul class="nav-tab">
+            <li>History</li>
+          </ul>
+          <ul class="tab-field">
+            <li class="history-field">
+              <p id="no-history">There's no history yet</p>
+              <!-- there will be generated two information -->
+              <div class="history-data">
+                <p class="calculation-history"></p>
+                <p class="calculation-result"></p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- container end here -->
+
+    <script src="index.js"></script>
+  </body>
+</html>
