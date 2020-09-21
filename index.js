@@ -1,6 +1,9 @@
 // Global Variable
 let tempNumber = '0';
+let tempCalculationNumber = '0';
 let resultValue = '0';
+let operation = '';
+let calculationStatus = false;
 
 // Rendering view
 
@@ -44,17 +47,23 @@ const equal = document.querySelector('#equal');
 // Method
 
 const setResult = (type = 'CE') => {
-  if (type === 'CE') {
+  if (type === 'C') {
+    calculationResult.innerHTML = resultValue;
+  } else if (type === 'CE') {
     calculationResult.innerHTML = tempNumber;
-  } else calculationResult.innerHTML = resultValue;
+  }
 };
 const resetValue = (source) => {
+  if (calculationStatus) {
+    resultValue = '0';
+  }
   tempNumber = '0';
   setResult(source.target.innerHTML);
 };
 const resetResult = (source) => {
   resultValue = '0';
   tempNumber = '0';
+  operation = '';
   setResult(source.target.innerHTML);
 };
 const modifyValue = (tes) => {
@@ -67,8 +76,6 @@ const modifyValue = (tes) => {
 };
 
 // Testing Number Button
-
-setResult();
 
 one.addEventListener('click', (event) => modifyValue(event));
 
@@ -93,3 +100,36 @@ zero.addEventListener('click', (event) => modifyValue(event));
 // Testing Modifier Buttons
 clear.addEventListener('click', (event) => resetResult(event));
 clearEntry.addEventListener('click', (event) => resetValue(event));
+backspace.addEventListener('click', () => {
+  if (tempNumber.length === 1) {
+    tempNumber = '0';
+  } else tempNumber = tempNumber.slice(0, tempNumber.length - 1);
+  setResult();
+});
+
+// Testing Operator Buttons
+plus.addEventListener('click', () => {
+  operation = 'plus';
+  tempCalculationNumber = tempNumber;
+  resultValue = parseInt(resultValue) + parseInt(tempCalculationNumber);
+  tempNumber = '0';
+});
+equal.addEventListener('click', () => {
+  switch (operation) {
+    case 'plus':
+      if (tempNumber !== '0') {
+        tempCalculationNumber = tempNumber;
+      }
+      calculationStatus = true;
+      tempNumber = '0';
+      resultValue = parseInt(resultValue) + parseInt(tempCalculationNumber);
+      setResult('C');
+      break;
+    case 'minus':
+      break;
+    case 'multiplication':
+      break;
+    case 'division':
+      break;
+  }
+});
