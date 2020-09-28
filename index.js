@@ -2,6 +2,7 @@
 let tempNumber = '0';
 let tempCalculationNumber = '0';
 let resultValue = '0';
+let recentResult = '0';
 let operation = '';
 let calculationStatus = false;
 
@@ -64,6 +65,7 @@ const resetResult = (source) => {
   resultValue = '0';
   tempNumber = '0';
   operation = '';
+  calculationStatus = false;
   setResult(source.target.innerHTML);
 };
 const modifyValue = (tes) => {
@@ -74,6 +76,15 @@ const modifyValue = (tes) => {
     setResult();
   }
 };
+// Update History belum selesai dibuat
+const updateHistory = (source) => {
+  if (source.target.innerHTML === '&#61;') {
+    calculationHistory.textContent += `${tempNumber} = `;
+  } else {
+    calculationHistory.textContent += `${tempNumber} ${source.target.innerHTML} `;
+  }
+};
+const createHistory = (source) => {};
 
 // Testing Number Button
 
@@ -101,32 +112,68 @@ zero.addEventListener('click', (event) => modifyValue(event));
 clear.addEventListener('click', (event) => resetResult(event));
 clearEntry.addEventListener('click', (event) => resetValue(event));
 backspace.addEventListener('click', () => {
-  if (tempNumber.length === 1) {
-    tempNumber = '0';
-  } else tempNumber = tempNumber.slice(0, tempNumber.length - 1);
-  setResult();
+  if (!calculationStatus) {
+    if (tempNumber.length === 1) {
+      tempNumber = '0';
+    } else tempNumber = tempNumber.slice(0, tempNumber.length - 1);
+    setResult();
+  }
 });
 
 // Testing Operator Buttons
-plus.addEventListener('click', () => {
+
+// Plus sudah berfungsi sebagaimana mestinya
+plus.addEventListener('click', (event) => {
+  if (resultValue === '0') {
+    tempCalculationNumber = tempNumber;
+  }
+
+  if (operation === 'plus') {
+    resultValue = parseInt(resultValue) + parseInt(tempNumber);
+  } else resultValue = tempCalculationNumber;
   operation = 'plus';
-  tempCalculationNumber = tempNumber;
-  resultValue = parseInt(resultValue) + parseInt(tempCalculationNumber);
+  updateHistory(event);
   tempNumber = '0';
+  setResult('C');
 });
-equal.addEventListener('click', () => {
+// minus.addEventListener('click', () => {
+//   if (resultValue === '0') {
+//     tempCalculationNumber = tempNumber;
+//   }
+
+//   if (operation === 'minus') {
+//     resultValue = parseInt(resultValue) - parseInt(tempNumber);
+//   } else resultValue = tempCalculationNumber;
+
+//   operation = 'minus';
+//   tempNumber = '0';
+//   setResult('C');
+// });
+
+// Equal belum selesai dibuat masih bug saat operasi berlanjut memakai hasil operasi sebelumnya
+equal.addEventListener('click', (event) => {
   switch (operation) {
     case 'plus':
       if (tempNumber !== '0') {
         tempCalculationNumber = tempNumber;
-      }
+      } else tempCalculationNumber = resultValue;
       calculationStatus = true;
-      tempNumber = '0';
       resultValue = parseInt(resultValue) + parseInt(tempCalculationNumber);
+      updateHistory(event);
+      tempNumber = '0';
       setResult('C');
+      recentResult = resultValue;
+      resultValue = '0';
       break;
     case 'minus':
-      break;
+    // if (tempNumber !== '0') {
+    //   tempCalculationNumber = tempNumber;
+    // } else tempCalculationNumber = resultValue;
+    // calculationStatus = true;
+    // tempNumber = '0';
+    // resultValue = parseInt(resultValue) - parseInt(tempCalculationNumber);
+    // setResult('C');
+    // break;
     case 'multiplication':
       break;
     case 'division':
