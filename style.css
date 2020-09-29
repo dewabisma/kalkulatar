@@ -76,6 +76,7 @@ li {
   font-size: 0.8rem;
   margin-top: 0.8rem;
   margin-right: 0.6rem;
+  overflow: hidden;
 }
 
 .result {

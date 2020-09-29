@@ -65,6 +65,7 @@ const resetResult = (source) => {
   resultValue = '0';
   tempNumber = '0';
   operation = '';
+  calculationHistory.innerHTML = '';
   calculationStatus = false;
   setResult(source.target.innerHTML);
 };
@@ -73,15 +74,25 @@ const modifyValue = (tes) => {
     if (tempNumber === '0') {
       tempNumber = String(tes.target.innerHTML);
     } else tempNumber += String(tes.target.innerHTML);
+
+    if (calculationStatus) {
+      calculationHistory.innerHTML = '';
+      calculationStatus = false;
+    }
     setResult();
   }
 };
 // Update History belum selesai dibuat
 const updateHistory = (source) => {
-  if (source.target.innerHTML === '&#61;') {
-    calculationHistory.textContent += `${tempNumber} = `;
+  if (source.target.id === 'equal') {
+    if (calculationStatus) {
+      calculationHistory.innerHTML = `${recentResult} ${operation} ${tempCalculationNumber} &#61;`;
+    } else calculationHistory.innerHTML += `${tempCalculationNumber} &#61; `;
   } else {
-    calculationHistory.textContent += `${tempNumber} ${source.target.innerHTML} `;
+    if (calculationStatus) {
+      // calculationHistory.innerHTML = `${resultValue} ${operation} ${tempNumber}`;
+    } else
+      calculationHistory.innerHTML += `${tempNumber} ${source.target.innerHTML} `;
   }
 };
 const createHistory = (source) => {};
@@ -122,19 +133,21 @@ backspace.addEventListener('click', () => {
 
 // Testing Operator Buttons
 
-// Plus sudah berfungsi sebagaimana mestinya
+// Plus masih BUG
 plus.addEventListener('click', (event) => {
-  if (resultValue === '0') {
-    tempCalculationNumber = tempNumber;
-  }
+  if (tempNumber !== '0') {
+    if (resultValue === '0') {
+      tempCalculationNumber = tempNumber;
+    }
 
-  if (operation === 'plus') {
-    resultValue = parseInt(resultValue) + parseInt(tempNumber);
-  } else resultValue = tempCalculationNumber;
-  operation = 'plus';
-  updateHistory(event);
-  tempNumber = '0';
-  setResult('C');
+    if (operation === '&#43;') {
+      resultValue = parseInt(resultValue) + parseInt(tempNumber);
+    } else resultValue = tempCalculationNumber;
+    operation = '&#43;';
+    updateHistory(event);
+    tempNumber = '0';
+    setResult('C');
+  }
 });
 // minus.addEventListener('click', () => {
 //   if (resultValue === '0') {
@@ -153,19 +166,17 @@ plus.addEventListener('click', (event) => {
 // Equal belum selesai dibuat masih bug saat operasi berlanjut memakai hasil operasi sebelumnya
 equal.addEventListener('click', (event) => {
   switch (operation) {
-    case 'plus':
-      if (tempNumber !== '0') {
-        tempCalculationNumber = tempNumber;
-      } else tempCalculationNumber = resultValue;
-      calculationStatus = true;
+    case '&#43;':
+      if (tempNumber !== '0') tempCalculationNumber = tempNumber;
+      recentResult = resultValue;
+      alert(`${parseInt(resultValue)} + ${parseInt(tempCalculationNumber)}`);
       resultValue = parseInt(resultValue) + parseInt(tempCalculationNumber);
       updateHistory(event);
       tempNumber = '0';
       setResult('C');
-      recentResult = resultValue;
-      resultValue = '0';
+      calculationStatus = true;
       break;
-    case 'minus':
+    case '&#8722;':
     // if (tempNumber !== '0') {
     //   tempCalculationNumber = tempNumber;
     // } else tempCalculationNumber = resultValue;
@@ -174,9 +185,16 @@ equal.addEventListener('click', (event) => {
     // resultValue = parseInt(resultValue) - parseInt(tempCalculationNumber);
     // setResult('C');
     // break;
-    case 'multiplication':
+    case '&#215;':
       break;
-    case 'division':
+    case '&#247;':
       break;
+    default:
+      if (!calculationStatus) {
+        tempCalculationNumber = tempNumber;
+        updateHistory(event);
+        tempNumber = '0';
+        calculationStatus = true;
+      }
   }
 });
