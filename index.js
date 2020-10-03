@@ -57,6 +57,7 @@ const setResult = (type = 'CE') => {
 const resetValue = (source) => {
   if (calculationStatus) {
     resultValue = '0';
+    calculationHistory.innerHTML = '';
   }
   tempNumber = '0';
   setResult(source.target.innerHTML);
@@ -77,12 +78,13 @@ const modifyValue = (tes) => {
 
     if (calculationStatus) {
       calculationHistory.innerHTML = '';
+      resultValue = '0';
       calculationStatus = false;
     }
     setResult();
   }
 };
-// Update History belum selesai dibuat
+// Update History bug when doing continous operation after equal button clicked
 const updateHistory = (source) => {
   if (source.target.id === 'equal') {
     if (calculationStatus) {
@@ -137,6 +139,7 @@ backspace.addEventListener('click', () => {
 plus.addEventListener('click', (event) => {
   if (tempNumber !== '0') {
     if (resultValue === '0') {
+      alert('ahye');
       tempCalculationNumber = tempNumber;
     }
 
@@ -177,14 +180,7 @@ equal.addEventListener('click', (event) => {
       calculationStatus = true;
       break;
     case '&#8722;':
-    // if (tempNumber !== '0') {
-    //   tempCalculationNumber = tempNumber;
-    // } else tempCalculationNumber = resultValue;
-    // calculationStatus = true;
-    // tempNumber = '0';
-    // resultValue = parseInt(resultValue) - parseInt(tempCalculationNumber);
-    // setResult('C');
-    // break;
+      break;
     case '&#215;':
       break;
     case '&#247;':
